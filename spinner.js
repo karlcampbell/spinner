@@ -6,7 +6,7 @@
 //directive
 
 angular.module('spinner', [])
-  .directive('spinner', function ($window, Spinner) {
+  .directive('spinner', function ($window, spinner) {
     return {
       scope: true,
       link: function (scope, element, attr) {
@@ -24,18 +24,18 @@ angular.module('spinner', [])
 
         function startSpinner() {
           element.show();
-          scope.spinner = new $window.Spinner(angular.fromJson(attr.usSpinner.replace(/'/g,'\"')));
+          scope.spinner = new $window.Spinner(angular.fromJson(attr.spinner.replace(/'/g,'\"')));
           scope.spinner.spin(element[0]);
         }
 
-        scope.$watch(Spinner.spinning, function(start) {
+        scope.$watch(spinner.spinning, function(start) {
           //console.log(attr.usSpinner);
           if(start) {
             startSpinner()
           } else {
             stopSpinner();
           }
-        })
+        });
 
         scope.$on('$destroy', function () {
           stopSpinner();
